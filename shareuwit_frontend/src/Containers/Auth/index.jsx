@@ -9,7 +9,7 @@ import store from '../../Redux/store'
 import {SETUSER} from '../../Redux/constant'
 
 //引入action
-import {setUserObj} from '../../Redux/actions/auth'
+import {asyncSetUserObj} from '../../Redux/actions/auth'
 
 //检查状态
 function mapStateToProps(state){
@@ -21,7 +21,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
     return {
         //通知redux执行
-        setUser:(userObj) => {dispatch(setUserObj(userObj))}
+        setUser:(userObj) => {dispatch(asyncSetUserObj(userObj))}
     }
 }
 
