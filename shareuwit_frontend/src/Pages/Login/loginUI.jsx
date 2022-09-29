@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import api from '../../api';
+import axiosInstance from '../../utils/request';
+import getUserInfo from '../../utils/getUserInfo';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -19,14 +22,25 @@ export default class LoginUI extends Component {
   
   changeHandle = (event) =>{
     this.setState({
-      [event.target.name]:event.target.value
+      [event.target.name]:event.target.value.trim()
     })
   }
 
   onSubmit = () =>{
-    const {username, password} = this.state
-    const userObj = {username:username, password:password}
-    this.props.setUser(userObj)
+    const {username, password} = this.state;
+    const userObj = {username:username, password:password};
+    api.login(userObj)
+       .then((res)=>{
+        localStorage.setItem('access_token',res.data.access);
+        localStorage.setItem('refresh_token',res.data.refresh);
+        axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
+        return res 
+      })
+      .then(async (res)=>{
+        const accessToken = res.data.access;
+        await getUserInfo(accessToken);
+        window.location = "/"
+      });
   }
 
   render() {

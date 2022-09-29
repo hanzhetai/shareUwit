@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import {Link} from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import UserAvatar from './userAvatar';
 
 
 import AppBar from '@mui/material/AppBar';
@@ -34,7 +35,6 @@ const theme = createTheme({
 
 
 const pages = ['主页', '空间', '创作'];
-const settings = ['个人资料', '收到消息', '退出登录'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -194,9 +194,15 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box> */}
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Link to='/login'><Button variant="text" color='loginButton'>登录</Button></Link>
-          </Box>
+          {
+            localStorage.getItem('refresh_token') 
+            ?
+            <UserAvatar />
+            :
+            <Box sx={{ flexGrow: 0 }}>
+              <Link to='/login'><Button variant="text" color='loginButton'>登录</Button></Link>
+            </Box>
+          }
           
         </Toolbar>
       </Container>

@@ -1,10 +1,14 @@
-import axios from 'axios'
+import axiosInstance from "../utils/request"
+import {APP_API_URL} from '../baseConfig'
+import getUserInfo from "../utils/getUserInfo"
 
 // 网络请求访问路径
-const base = {
-    baseUrl: "http://127.0.0.1:8000/",
+export const base = {
+    baseUrl: APP_API_URL,
     signup:  "auth/users/",
-    login: "auth/jwt/create"
+    login: "auth/jwt/create",
+    userInfo: "auth/users/me",
+    tokenRefresh: "auth/jwt/refresh/"
 }
 
 // 网络请求方法
@@ -18,7 +22,7 @@ const api = {
     }
     */
     signup(params){
-        return axios.post(base.baseUrl + base.signup, params)
+        return axiosInstance.post(base.baseUrl + base.signup, params)
     },
     // 登录
     /**
@@ -28,8 +32,16 @@ const api = {
     }
     */
     login(params){
-        return axios.post(base.baseUrl + base.login, params)
-    }
+        return axiosInstance.post(base.baseUrl + base.login, params)
+    },
+    //刷新token
+    tokenRefresh(refreshToken){
+        return axiosInstance.post(base.baseUrl + base.tokenRefresh, refreshToken)
+    },
+    //获取用户信息
+    userInfo(config){
+        return axiosInstance.get(base.baseUrl + base.userInfo, config)
+    },
 }
 
 export default api;

@@ -24,7 +24,7 @@ export default class SignUp extends Component {
 
   changeHandle = (event) =>{
     this.setState({
-      [event.target.name]:event.target.value
+      [event.target.name]:event.target.value.trim()
     })
   }
 
@@ -51,8 +51,13 @@ export default class SignUp extends Component {
         username: username,
         password: password,
       }
-    ).then(res=>{
-      console.log(res.data)
+    ).then(function(response){
+      const status = response.status;
+      console.log(response)
+      //注册成功，跳转至登录页面
+      if (status == 201) {
+        window.location = "/login"
+      }
     }).catch(AxiosError=>{
       this.setState({
         errors:AxiosError.response.data
