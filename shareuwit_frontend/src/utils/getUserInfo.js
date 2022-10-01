@@ -11,7 +11,7 @@ export default async function getUserInfo(accessToken) {
   };
   try{
     const {data} = await api.userInfo(config);
-    console.log(data);
+    console.log('获取用户信息',data);
     localStorage.setItem('username',data.username);
     localStorage.setItem('id',data.id);
   } catch(error) {

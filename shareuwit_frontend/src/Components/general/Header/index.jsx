@@ -33,9 +33,6 @@ const theme = createTheme({
   },
 });
 
-
-const pages = ['主页', '空间', '创作'];
-
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -53,6 +50,10 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handlePushToEditor = () => {
+    window.location = './create'
   };
 
   return (
@@ -112,12 +113,12 @@ const ResponsiveAppBar = () => {
               }}
             >
               
-              {/* 菜单栏显示内容 */}
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+            {/* 菜单栏显示内容 */}
+            <MenuItem onClick={handleCloseNavMenu}>
+              <Typography textAlign="center">主页</Typography>
+              <Typography textAlign="center">空间</Typography>
+              <Typography textAlign="center">创作</Typography>
+            </MenuItem>
             </Menu>
           </Box>
           
@@ -146,54 +147,36 @@ const ResponsiveAppBar = () => {
             </Typography>     
                
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            <Button
+              
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              主页
+            </Button>
+
+            <Button
+              
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              空间
+            </Button>
+
+            {
+              localStorage.getItem('refresh_token')
+              ?
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+              onClick={handlePushToEditor}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              创作
+            </Button>
+              :
+              null
+
+            }
           </Box>
 
-
-          {/* 用户登录后显示 */}
-          {/* <Box sx={{ flexGrow: 0 }}>
-            // 头像
-            <Tooltip title="Open settings">
-            // 头像
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            
-            //点击后展示信息
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-            
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
-
+          <Box sx={{ flexGrow: 0 }} display="flex" flexDirection="column" >
           {
             localStorage.getItem('refresh_token') 
             ?
@@ -203,7 +186,7 @@ const ResponsiveAppBar = () => {
               <Link to='/login'><Button variant="text" color='loginButton'>登录</Button></Link>
             </Box>
           }
-          
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

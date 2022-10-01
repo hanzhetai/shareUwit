@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux'
-import auth from './auth'
-import {composeWithDevTools} from 'redux-devtools-extension'
+import notice from './notice'
+
 
 const rootReducer = combineReducers({
-    auth,
+    notice,
 })
 
 export default rootReducer

@@ -9,6 +9,7 @@ import Content from './Components/general/Content'
 import SignUpPage from './Pages/SignUp'
 import LoginPage from './Pages/Login'
 import HomePage from './Pages/Home';
+import EditorPage from './Components/special/CKEditor'
 
 import './App.css'
 
@@ -28,6 +29,7 @@ const App = () => (
         <Route path='/home' element={<HomePage/>}/>
         <Route path='/signup' element={<SignUpPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/create' element={<EditorPage/>}/>
         <Route path='/' element={<Navigate to='/home'/>}/>
       </Routes>
     </Grid>

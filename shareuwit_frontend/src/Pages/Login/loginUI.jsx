@@ -14,6 +14,20 @@ import TextField from '@mui/material/TextField';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
 
+//消息提醒
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notify = (msg) => toast.warn('😲' + '😲' + msg + '😲' + '😲', {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                  });
+
 export default class LoginUI extends Component {
   state = {
     username:'',
@@ -40,7 +54,13 @@ export default class LoginUI extends Component {
         const accessToken = res.data.access;
         await getUserInfo(accessToken);
         window.location = "/"
-      });
+      })
+      .catch(
+        err=>{
+          console.log(err);
+          {notify(err.message)};
+        }
+      );
   }
 
   render() {
@@ -51,7 +71,8 @@ export default class LoginUI extends Component {
             <Typography sx={{ fontSize: 25 }} color="text.secondary" gutterBottom>
               登录页面
             </Typography>
-
+            
+            <ToastContainer theme='dark'/>
               <TextField
                 id="username"
                 required

@@ -44,19 +44,23 @@ axiosInstance.interceptors.response.use(
 	},
 
 	async function (error) {
-        console.log('error',error)
-		console.log('error.response',error.response)
-		console.log('error.response.status',error.response.status)
+        console.log('Interceptors error',error)
 		const originalRequest = error.config;
         console.log('error.config',originalRequest)
+
+		//本地请求超时
+		if (error.code == 'ECONNABORTED') {
+			console.log('连接失败',error)
+			return Promise.reject(error);
+		}
         
         //服务器断连时提示//后续修改为顶部flash提醒
 		if (error.response.status == 0) {
-			alert(
-				'后台服务器疑似出现问题，' +
-				'也许问题是出在了跨域请求上，' +
-				'非常抱歉--我们将会尽快解决这一问题！'
-			);
+			// alert(
+			// 	'后台服务器疑似出现问题，' +
+			// 	'也许问题是出在了跨域请求上，' +
+			// 	'非常抱歉--我们将会尽快解决这一问题！'
+			// );
 			console.log('orginalRequest.url',originalRequest.url);
 			return Promise.reject(error);
 		};

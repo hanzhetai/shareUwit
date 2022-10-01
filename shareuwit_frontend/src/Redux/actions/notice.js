@@ -1,7 +1,5 @@
-// import api from '../../api'
-// import axiosInstance from '../../utils/request'
-// import {SETUSER} from '../constant'
-// import getUserInfo from '../../utils/getUserInfo'
+import axiosInstance from '../../utils/request'
+import {NOTICE_SERVER_FAIL} from '../constant'
 
 // export function setUserObj(data){
 //     return {
@@ -22,5 +20,12 @@
 //             dispatch(setUserObj(res.data));       
 //             window.location = "/"
 //         })
+//     }
+// }
+
+// function setNoticeType(msg){
+//     return {
+//         type: NOTICE_SERVER_FAIL,
+//         msg
 //     }
 // }

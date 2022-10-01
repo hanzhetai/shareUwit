@@ -12,6 +12,21 @@ import TextField from '@mui/material/TextField';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
 
+
+//消息提醒
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notify = (msg) => toast.warn('😲' + '😲' + msg + '😲' + '😲', {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                  });
+
 export default class SignUp extends Component {
   state = {
     email:'',
@@ -58,14 +73,14 @@ export default class SignUp extends Component {
       if (status == 201) {
         window.location = "/login"
       }
-    }).catch(AxiosError=>{
+    }).catch(error=>{
       this.setState({
-        errors:AxiosError.response.data
-      },()=>{console.log(this.state)})
+        errors:error.response.data
+      },()=>{console.log('loginState',this.state)});
+      {notify(error.message)};
     }
     )
   }
-
 
   render() {
     const {confirm, errors} = this.state
@@ -76,14 +91,15 @@ export default class SignUp extends Component {
             <Typography sx={{ fontSize: 25 }} color="text.secondary" gutterBottom>
               注册页面
             </Typography>
+            <ToastContainer theme='dark'/>
 
               <TextField
                 id="outlined-required email"
                 required
                 name='email'
                 onChange={this.changeHandle}
-                error = {errors.email ? true : false}
-                helperText={errors.email ? errors.email : ""}
+                error = {errors ? errors.email ? true : false : false}
+                helperText={errors ? errors.email ? errors.email : "" : ""}
                 label="邮箱"
                 sx={{ minWidth: 250, maxWidth: 300 }}
               />
@@ -96,8 +112,8 @@ export default class SignUp extends Component {
                 required
                 name='username'
                 onChange={this.changeHandle}
-                error = {errors.username ? true : false}
-                helperText={errors.username ? errors.username : ""}
+                error = {errors ? errors.username ? true : false : false}
+                helperText={errors ? errors.username ? errors.username : "" : ""}
                 label="用户名"
                 sx={{ minWidth: 250, maxWidth: 300 }}
               />
@@ -111,8 +127,8 @@ export default class SignUp extends Component {
                 type='password'
                 name='password'
                 onChange= {this.handlePassword}
-                error = {errors.password ? true : false}
-                helperText={errors.password ? errors.password : ""}
+                error = {errors ? errors.password ? true : false : false}
+                helperText={errors ? errors.password ? errors.password : "" : ""}
                 label="用户密码"
                 sx={{ minWidth: 250, maxWidth: 300 }}
               />
