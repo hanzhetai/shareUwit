@@ -9,7 +9,7 @@ import Content from './Components/general/Content'
 import SignUpPage from './Pages/SignUp'
 import LoginPage from './Pages/Login'
 import HomePage from './Pages/Home';
-import EditorPage from './Components/special/CKEditor'
+import EditorPage from './Components/special/TinyMCE'
 
 import './App.css'
 

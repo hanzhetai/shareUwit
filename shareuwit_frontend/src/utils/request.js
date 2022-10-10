@@ -30,10 +30,17 @@ function Strbase64(str){
 };
 
 //请求拦截器
-axios.interceptors.request.use(function (config) {
-    return config;
-  }, function (error) {
-    return Promise.reject(error);
+axios.interceptors.request.use(
+	(config) => {
+		if (config.method=='post' && config.url == APP_API_URL + base.uploadArticleImage){
+			config.headers["Content-Type"] = "multipart/form-data"
+			return config;
+		}
+		return config;
+	},
+    (error) => {
+		console.log('请求拦截错误', error);
+    	return Promise.reject(error);
 });
 
 //Refresh Token更新机制//响应拦截器
@@ -53,8 +60,14 @@ axiosInstance.interceptors.response.use(
 			console.log('连接失败',error)
 			return Promise.reject(error);
 		}
+
+		//本地请求400错误
+		if (error.response.status == 400) {
+			console.log('连接失败',error)
+			return Promise.reject(error);
+		}
         
-        //服务器断连时提示//后续修改为顶部flash提醒
+        //服务器断连时提示
 		if (error.response.status == 0) {
 			// alert(
 			// 	'后台服务器疑似出现问题，' +

@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 django = "*"
+uuid = "*"
+pillow = "*"
+drf-nested-routers = "*"
 
 [dev-packages]
 

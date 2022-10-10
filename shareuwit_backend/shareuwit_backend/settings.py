@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'djoser',
     'debug_toolbar',
     'core',
+    'articles',
     'index',
 ]
 
@@ -98,6 +99,8 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 REST_FRAMEWORK = {
     'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -105,11 +108,13 @@ REST_FRAMEWORK = {
     ),
 }
 
+AUTH_USER_MODEL = 'core.UserAccount'
+
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
    #for test only!!!!
-   'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
-   'REFRESH_TOKEN_LIFETIME': timedelta(minutes=2)
+   'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+   'REFRESH_TOKEN_LIFETIME': timedelta(minutes=20)
 }
 
 # AUTH_USER_MODEL = 'core.UserAccount'
@@ -149,6 +154,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_IMG_URL = '/media/images'
+MEDIA_IMG_ROOT = os.path.join(BASE_DIR, 'media/images')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

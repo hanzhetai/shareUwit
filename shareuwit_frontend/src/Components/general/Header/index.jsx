@@ -125,8 +125,7 @@ const ResponsiveAppBar = () => {
 
 
           {/* 小屏幕适配 */}
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />      
             <Typography
               variant="h5"
               noWrap
@@ -147,15 +146,13 @@ const ResponsiveAppBar = () => {
             </Typography>     
                
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button
-              
+            <Button   
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               主页
             </Button>
 
-            <Button
-              
+            <Button       
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               空间
@@ -165,18 +162,17 @@ const ResponsiveAppBar = () => {
               localStorage.getItem('refresh_token')
               ?
               <Button
-              onClick={handlePushToEditor}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              创作
-            </Button>
+                onClick={handlePushToEditor}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                创作
+              </Button>
               :
               null
-
             }
           </Box>
 
-          <Box sx={{ flexGrow: 0 }} display="flex" flexDirection="column" >
+          <Box sx={{ flexGrow: 0 }} display="flex">
           {
             localStorage.getItem('refresh_token') 
             ?

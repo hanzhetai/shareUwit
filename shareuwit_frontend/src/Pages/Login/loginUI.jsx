@@ -30,7 +30,7 @@ const notify = (msg) => toast.warn('😲' + '😲' + msg + '😲' + '😲', {
 
 export default class LoginUI extends Component {
   state = {
-    username:'',
+    email:'',
     password:'',
   }
   
@@ -41,8 +41,8 @@ export default class LoginUI extends Component {
   }
 
   onSubmit = () =>{
-    const {username, password} = this.state;
-    const userObj = {username:username, password:password};
+    const {email, password} = this.state;
+    const userObj = {email:email, password:password};
     api.login(userObj)
        .then((res)=>{
         localStorage.setItem('access_token',res.data.access);
@@ -74,11 +74,11 @@ export default class LoginUI extends Component {
             
             <ToastContainer theme='dark'/>
               <TextField
-                id="username"
+                id="email"
                 required
-                name='username'
+                name='email'
                 onChange={this.changeHandle}
-                label="用户名/邮箱"
+                label="邮箱"
                 sx={{ minWidth: 250, maxWidth: 300 }}
               />
 

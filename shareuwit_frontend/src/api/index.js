@@ -8,7 +8,9 @@ export const base = {
     signup:  "auth/users/",
     login: "auth/jwt/create",
     userInfo: "auth/users/me",
-    tokenRefresh: "auth/jwt/refresh/"
+    tokenRefresh: "auth/jwt/refresh/",
+    publishArticle: "articles/article/",
+    uploadArticleImage: "articles/image/",
 }
 
 // 网络请求方法
@@ -41,6 +43,22 @@ const api = {
     //获取用户信息
     userInfo(config){
         return axiosInstance.get(base.baseUrl + base.userInfo, config)
+    },
+    //发表文章
+    publishArticle(articleObj){
+        return axiosInstance.post(base.baseUrl + base.publishArticle, articleObj)
+    },
+    //保存更新文章
+    updateArticle(articleObj,params){
+        return axiosInstance.patch(base.baseUrl + base.publishArticle + params + '/', articleObj)
+    },
+    //上传文章图片
+    uploadArticleImage(formData){
+        return axiosInstance.post(base.baseUrl + base.uploadArticleImage, formData, {
+            headers: {
+              'content-type': 'multipart/form-data'
+            }
+          })
     },
 }
 
